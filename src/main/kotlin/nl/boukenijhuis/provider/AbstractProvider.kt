@@ -1,39 +1,31 @@
-package nl.boukenijhuis.provider;
+package nl.boukenijhuis.provider
 
-public abstract class AbstractProvider implements Provider {
+abstract class AbstractProvider(model:String) : Provider {
 
-    protected String model;
-
-    public AbstractProvider(String model) {
-        setModel(model);
-    }
+    override lateinit var model: String
 
     // makes sure there is always a selected model
-    protected void setModel(String model) {
-        if (model == null || model.isBlank()) {
-            this.model = this.getDefaultModel();
+    init {
+        if (model.isBlank()) {
+            this.model = this.defaultModel
         } else {
-            this.model = model;
+            this.model = model
         }
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    @Override
-    public String handleException(Exception e) throws Exception {
+    @Throws(Exception::class)
+    override fun handleException(e: Exception): String? {
         // ignore the rate limiter
-        if (e.getMessage().contains(getRateLimitMessage())) {
-            System.out.print(".");
+        if (e.message!!.contains(this.rateLimitMessage)) {
+            print(".")
             // sleep for 1 second
-            Thread.sleep(1000);
+            Thread.sleep(1000)
             // no new command, just retry
-            return null;
+            return null
         } else {
-            throw e;
+            throw e
         }
     }
 
-    abstract public String getRateLimitMessage();
+    abstract val rateLimitMessage: String
 }

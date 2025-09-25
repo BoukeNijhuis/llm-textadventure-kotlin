@@ -3,9 +3,9 @@ package nl.boukenijhuis.provider
 import java.lang.reflect.InvocationTargetException
 
 class ProviderBuilder(private val clazz: Class<*>) {
-    private var model: String? = null
+    private lateinit var model: String
 
-    fun model(model: String?): ProviderBuilder {
+    fun model(model: String): ProviderBuilder {
         this.model = model
         return this
     }

@@ -15,14 +15,14 @@ class ProviderConverter : ITypeConverter<ProviderBuilder?> {
         OPENROUTER(ProviderBuilder(OpenRouter::class.java));
 
         internal class CompletionCandidates : ArrayList<String?>(
-            ArrayList<String?>(
-                Arrays.stream<ValidProvider?>(entries.toTypedArray())
-                    .map<String?> { obj: ValidProvider? -> obj!!.name }
-                    .map<String?> { obj: String? -> obj!!.lowercase(Locale.getDefault()) }
+            ArrayList(
+                Arrays.stream(entries.toTypedArray())
+                    .map { p: ValidProvider -> p.name }
+                    .map { s: String -> s.lowercase(Locale.getDefault()) }
                     .toList()))
     }
 
-    override fun convert(value: String): ProviderBuilder? {
+    override fun convert(value: String): ProviderBuilder {
         try {
             return ValidProvider.valueOf(value.uppercase(Locale.getDefault())).providerBuilder
         } catch (e: IllegalArgumentException) {

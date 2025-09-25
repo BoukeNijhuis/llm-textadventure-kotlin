@@ -5,19 +5,19 @@ import java.io.InputStream
 import java.io.OutputStream
 
 abstract class AbstractGame : Game {
-    protected var gameOutput: InputStream? = null
-    protected var gameInput: OutputStream? = null
+    protected lateinit var gameOutput: InputStream
+    protected lateinit var gameInput: OutputStream
 
     @Throws(IOException::class)
-    protected fun start(commandArray: Array<String?>) {
+    protected fun start(commandArray: Array<String>) {
         val processBuilder = ProcessBuilder()
         val game = processBuilder
             .redirectErrorStream(true)
             .command(*commandArray)
             .start()
 
-        gameOutput = game.getInputStream()
-        gameInput = game.getOutputStream()
+        gameOutput = game.inputStream
+        gameInput = game.outputStream
     }
 
     override fun read(): String {
@@ -25,11 +25,11 @@ abstract class AbstractGame : Game {
 
         try {
             do {
-                availableBytes = gameOutput!!.available()
+                availableBytes = gameOutput.available()
                 sleep()
             } while (availableBytes == 0)
 
-            return clean(String(gameOutput!!.readNBytes(availableBytes)))
+            return clean(String(gameOutput.readNBytes(availableBytes)))
         } catch (e: IOException) {
             throw RuntimeException(e)
         }
@@ -55,8 +55,8 @@ abstract class AbstractGame : Game {
 
     private fun writeInput(input: String?) {
         try {
-            gameInput!!.write((input + System.lineSeparator()).toByteArray())
-            gameInput!!.flush()
+            gameInput.write((input + System.lineSeparator()).toByteArray())
+            gameInput.flush()
         } catch (e: IOException) {
             throw RuntimeException(e)
         }

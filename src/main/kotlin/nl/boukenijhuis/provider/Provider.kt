@@ -8,7 +8,7 @@ interface Provider {
     val defaultModel: String
 
     @Throws(Exception::class)
-    fun handleException(e: Exception?): String?
+    fun handleException(e: Exception): String?
 
-    val model: String
+    var model: String
 }

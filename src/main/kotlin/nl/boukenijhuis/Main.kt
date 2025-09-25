@@ -22,7 +22,7 @@ object Main {
 
         val game = clParser.game!!
         val providerBuilder = clParser.providerBuilder
-        val provider = providerBuilder?.model(clParser.model)?.build()
+        val provider = providerBuilder.model(clParser.model)?.build()
 
         Printer.printStatus(game, provider)
 

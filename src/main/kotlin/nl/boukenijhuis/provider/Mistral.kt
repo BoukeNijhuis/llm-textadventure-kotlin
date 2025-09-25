@@ -3,7 +3,7 @@ package nl.boukenijhuis.provider
 import dev.langchain4j.model.chat.ChatModel
 import dev.langchain4j.model.mistralai.MistralAiChatModel
 
-class Mistral(model: String?) : AbstractProvider(model) {
+class Mistral(model: String) : AbstractProvider(model) {
     override val chatModel: ChatModel
         get() = MistralAiChatModel.builder()
             .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
@@ -14,7 +14,6 @@ class Mistral(model: String?) : AbstractProvider(model) {
     override val defaultModel: String
         get() = "mistral-small-latest"
 
-    override fun getRateLimitMessage(): String {
-        return "java.lang.RuntimeException: status code: 429"
-    }
+    override val rateLimitMessage: String = "java.lang.RuntimeException: status code: 429"
+
 }

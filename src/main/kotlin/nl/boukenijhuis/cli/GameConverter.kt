@@ -12,15 +12,13 @@ class GameConverter : ITypeConverter<Game?> {
         HITCHHIKER(Hitchhiker());
 
         internal class CompletionCandidates : ArrayList<String?>(
-            ArrayList<String?>(
-                Arrays.stream<ValidGame?>(entries.toTypedArray())
-                    .map<String?> { obj: ValidGame? -> obj!!.name }
-                    .map<String?> { obj: String? -> obj!!.lowercase(Locale.getDefault()) }
+            ArrayList(
+                Arrays.stream(entries.toTypedArray())
+                    .map { g: ValidGame -> g.name }
+                    .map { s: String -> s.lowercase(Locale.getDefault()) }
                     .toList()))
     }
 
-    override fun convert(value: String): Game? {
-        val game = ValidGame.valueOf(value.uppercase(Locale.getDefault())).game
-        return game
-    }
+    override fun convert(value: String): Game =
+        ValidGame.valueOf(value.uppercase(Locale.getDefault())).game
 }

@@ -8,6 +8,5 @@ class Hitchhiker : AbstractGame() {
         this.start(arrayOf("dfrotz", "/Users/boukenijhuis/hitchhiker-invclues-r31-s871119.z5"))
     }
 
-    override val completionString: String
-        get() = "The game is over."
+    override val completionString: String= "The game is over."
 }
