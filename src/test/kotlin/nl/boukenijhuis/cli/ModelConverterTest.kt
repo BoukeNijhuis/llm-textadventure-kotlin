@@ -35,7 +35,7 @@ internal class ModelConverterTest {
 
     @Test
     fun convertGemini() {
-        val providerBuilder = converter!!.convert("gemini")
+        val providerBuilder = converter.convert("gemini")
         Assertions.assertEquals(providerBuilder, ProviderBuilder(Gemini::class.java))
     }
 
@@ -55,8 +55,8 @@ internal class ModelConverterTest {
     @Test
     fun convertInvalidModelThrowsException() {
         val exception: Exception? =
-            Assertions.assertThrows<IllegalArgumentException?>(IllegalArgumentException::class.java, Executable {
+            Assertions.assertThrows(IllegalArgumentException::class.java) {
                 converter.convert("invalid")
-            })
+            }
     }
 }

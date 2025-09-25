@@ -51,7 +51,7 @@ internal class GameConverterTest {
 
     @Test
     fun convertInvalidGameThrowsException() {
-        Assertions.assertThrows<IllegalArgumentException?>(IllegalArgumentException::class.java, Executable {
+        Assertions.assertThrows(IllegalArgumentException::class.java, Executable {
             converter.convert("invalid")
         })
     }
