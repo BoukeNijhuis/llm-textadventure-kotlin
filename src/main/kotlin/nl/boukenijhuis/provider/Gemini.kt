@@ -7,7 +7,8 @@ class Gemini(model: String) : AbstractProvider(model) {
     override val chatModel: ChatModel
         get() = GoogleAiGeminiChatModel.builder()
             .apiKey(System.getenv("GEMINI_API_KEY"))
-            .modelName(model) // prevents rate limiter logging
+            .modelName(this.model)
+            // prevents rate limiter logging
             .maxRetries(0)
             .build()
 

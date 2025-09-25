@@ -7,8 +7,9 @@ class Mistral(model: String) : AbstractProvider(model) {
     override val chatModel: ChatModel
         get() = MistralAiChatModel.builder()
             .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-            .modelName(model) // prevents rate limiter logging
-            .maxRetries(1)
+            .modelName(this.model)
+            // prevents rate limiter logging
+            .maxRetries(0)
             .build()
 
     override val defaultModel: String

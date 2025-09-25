@@ -13,16 +13,16 @@ class CommandLineParser : Runnable {
     @CommandLine.Option(
         names = ["--game"],
         required = true,
-        description = ["Supported games: \${COMPLETION-CANDIDATES}. Defaults to Zork"],
+        description = ["Supported games: \${COMPLETION-CANDIDATES}"],
         converter = [GameConverter::class],
         completionCandidates = GameConverter.ValidGame.CompletionCandidates::class
     )
-    var game: Game = Zork()
+    lateinit var game: Game
 
     @CommandLine.Option(
         names = ["--provider"],
         required = true,
-        description = ["Supported models: \${COMPLETION-CANDIDATES}. Defaults to Ollama"],
+        description = ["Supported models: \${COMPLETION-CANDIDATES}"],
         converter = [ProviderConverter::class],
         completionCandidates = ValidProvider.CompletionCandidates::class
     )

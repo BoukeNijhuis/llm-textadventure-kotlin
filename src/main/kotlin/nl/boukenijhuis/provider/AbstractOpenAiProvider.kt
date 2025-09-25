@@ -8,8 +8,9 @@ abstract class AbstractOpenAiProvider(model: String) : AbstractProvider(model) {
         get() = OpenAiChatModel.builder()
             .apiKey(System.getenv(this.environmentVariableValue))
             .baseUrl(this.baseURL)
-            .modelName(model) // prevents rate limiter logging
-            .maxRetries(1)
+            .modelName(model)
+            // prevents rate limiter logging
+            .maxRetries(0)
             .build()
 
     abstract val environmentVariableValue: String

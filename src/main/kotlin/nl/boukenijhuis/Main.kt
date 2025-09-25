@@ -20,15 +20,16 @@ object Main {
             System.exit(result)
         }
 
-        val game = clParser.game!!
+        val game = clParser.game
         val providerBuilder = clParser.providerBuilder
-        val provider = providerBuilder.model(clParser.model)?.build()
+        // set the model before building the provider
+        val provider = providerBuilder.model(clParser.model).build()
 
         Printer.printStatus(game, provider)
 
         // setup the chain
         val chain = ConversationalChain.builder()
-            .chatModel(provider?.chatModel)
+            .chatModel(provider.chatModel)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(50))
             .build()
 

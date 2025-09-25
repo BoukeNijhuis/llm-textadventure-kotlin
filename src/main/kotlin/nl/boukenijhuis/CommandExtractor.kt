@@ -5,7 +5,7 @@ import nl.boukenijhuis.provider.Provider
 import java.util.*
 import java.util.function.Function
 
-class CommandExtractor(private val model: Provider?, private val chain: ConversationalChain) {
+class CommandExtractor(private val provider: Provider, private val chain: ConversationalChain) {
     fun getCommand(modelInput: String?, doChecks: Boolean): String? {
         var modelInput = modelInput
         try {
@@ -50,7 +50,7 @@ class CommandExtractor(private val model: Provider?, private val chain: Conversa
             return command
         } catch (e: Exception) {
             try {
-                return model?.handleException(e)
+                return provider.handleException(e)
             } catch (ex: Exception) {
                 throw e
             }
