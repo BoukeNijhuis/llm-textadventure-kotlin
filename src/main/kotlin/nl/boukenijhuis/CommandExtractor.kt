@@ -13,7 +13,12 @@ class CommandExtractor(private val provider: Provider, private val chain: Conver
                 modelInput = NO_INPUT_MESSAGE
             }
 
-            var command = chain.execute(modelInput)
+            var command:String? = chain.execute(modelInput)
+
+            // explicit null check
+            if (command == null) {
+                return null
+            }
 
             // remove new lines (the removing of <think> works better with no new lines)
             command = command.replace("\\n".toRegex(), " ")
